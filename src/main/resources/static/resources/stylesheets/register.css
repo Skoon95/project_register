@@ -1,0 +1,86 @@
+@charset "UTF-8";
+
+
+/**/
+
+
+
+html{
+    font-size: 12px;
+}
+
+
+
+/*전체길이*/
+.container{
+    height: 100%;
+}
+
+/*중앙 컨텐츠들*/
+.inner {
+    width: 500px;
+    margin: 0 auto;
+}
+
+.inner {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 100%;
+
+    padding: 1rem;
+}
+/*로고*/
+.container > .inner > .logo_we_meet > .logo {
+    width: 95px;
+    height: 18px;
+}
+
+/*전체 동의*/
+#registerForm > .inner > .step-1>.all > .check-container > .title{
+    font-size: 2rem;
+    margin-left: 0.5rem;
+}
+
+#registerForm > .inner > .step-1 > .all > .text{
+    margin-top: 1rem;
+    font-size: 15px;
+}
+
+/*이용약관 동의하기*/
+
+#registerForm > .inner > .step-1>.service{
+    margin-top: 3rem;
+    position: relative;
+}
+
+#registerForm > .inner > .step-1>.service > .term_list{
+    list-style: none;
+    padding: 0;
+}
+
+#registerForm > .inner > .step-1>.service > .term_list> .term_item{
+    margin-bottom: 50px;
+}
+
+#registerForm > .inner > .step-1>.service > .term_list> .term_item > .check-container > .title{
+    font-size: 2rem;
+    margin-left: 0.5rem;
+}
+
+/*다음 버튼*/
+
+#registerForm > .inner > .step-1> .button-container > .next{
+    width: 500px;
+    padding: 14px 0;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
+
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
