@@ -263,6 +263,49 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     <input class="_object-button _blue button next" type="submit" value="다음">
                 </div>
         </main>
+        <main class="main step-2">
+            <section class="sign">
+                <div class="form_list">
+                    <div class="form_item id">
+                        <input type="email" class="input" placeholder="이메일" maxlength="50" name="email">
+                    </div>
+
+                    <div class="form_item nickname">
+                        <input type="text" class="input" placeholder="별명" maxlength="10">
+                    </div>
+                    <div class="form_item password">
+                        <input type="password" class="input" placeholder="비밀번호">
+                    </div>
+                    <div class="form_item passwordCheck">
+                        <input type="password" class="input" placeholder="비밀번호 재입력">
+                    </div>
+                </div>
+                <div class="form_list">
+                    <div class="form_item name">
+                        <input type="text" class="input" placeholder="이름" maxlength="5" name="name">
+                    </div>
+                    <div class="form_item gender">
+                        <ul class="gender_list" id="listGender">
+                            <li class="radio_item">
+                                <input type="radio" id="gender1" name="gender" value="M" class="blind">
+                            </li>
+                            <li class="radio_item">
+                                <input type="radio" id="gender2" name="gender" value="F" class="blind">
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="form_item contact">
+                        <input type="text" class="input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)" >
+                        <input type="button" class="contactCode" name="contactSend" value="인증번호 전송">
+                    </div>
+                    <div class="form_item contactVerify">
+                        <input disabled class="input" maxlength="6" name="ContactCode" placeholder="인증번호" type="text">
+                        <input disabled class="button" name="ContactVerify" type="button" value="인증번호 확인">
+                    </div>
+                </div>
+            </section>
+        </main>
     </div>
 </form>
 </body>
