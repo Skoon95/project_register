@@ -101,7 +101,7 @@ html{
 }
 #registerForm > .inner > .step-2 > .sign > .form_list > .form_item{
     display: flex;
-    align-items: center;
+    align-items: stretch;
     position: relative;
     box-sizing: border-box;
     height: 50px;
@@ -120,6 +120,11 @@ html{
     padding: 0;
     border: none;
     outline: none;
+}
+
+#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .contactCode{
+    height: 100%;
+    flex: 1;
 }
 
 #registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .gender_list{
