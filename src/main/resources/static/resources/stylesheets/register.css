@@ -47,6 +47,8 @@ html{
     font-size: 15px;
 }
 
+
+
 /*이용약관 동의하기*/
 
 #registerForm > .inner > .step-1>.service{
@@ -110,7 +112,9 @@ html{
 
     border-bottom: 1px solid #d6d6d6;
 }
-
+#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .input-wrapper{
+    width: 470px;
+}
 
 #registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .input,
 #registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .button {
@@ -125,15 +129,72 @@ html{
 #registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .contactCode{
     height: 100%;
     flex: 1;
+    padding: 0;
+}
+/*img*/
+.input-wrapper >.input{
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
 }
 
-#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .gender_list{
-    list-style: none;
+.input-wrapper > .button{
+    flex: 1;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: none;
+    outline: none;
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-wrapper .img {
+    position: absolute;
+    top: 50%;
+    left: 5px;
+    transform: translateY(-50%);
+    width: 20px; /* 이미지의 크기를 조절하세요 */
+    height: 20px;
+
+    pointer-events: none;
+}
+
+.input-wrapper .input {
+    padding-left: 30px; /* 이미지의 크기와 간격에 맞게 조절하세요 */
+}
+
+
+/*gender*/
+
+.form_item>input[type="radio"]{
+    display: none;
+}
+
+.form_item>label{
+    position: relative;
+    font-size: 15px;
+    border:1px solid #d6d6d6 ;
     display: flex;
-    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    padding: 3px 3px;
+    width: 50%;
+}
+
+.form_item>input[type="radio"]:checked + label{
+    background-color: #01cc65;
+    color: white;
 }
 
 
-#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .gender_list> .radio_item{
 
-}
+
+

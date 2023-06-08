@@ -61,6 +61,7 @@ button {
 /**/
 ol ul li{
     list-style: none;
+    display: block;
 }
 
 h1 {
@@ -134,3 +135,5 @@ h1 {
     border: 1px solid #d6d6d6;
     resize: none;
 }
+
+/**/

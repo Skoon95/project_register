@@ -259,47 +259,59 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </li>
                 </ul>
             </section>
-<!--                <div class="button-container">-->
-<!--                    <input class="_object-button _blue button next" type="submit" value="다음">-->
-<!--                </div>-->
+            <div class="button-container">
+                <input class="_object-button _blue button next" type="submit" value="다음">
+            </div>
         </main>
         <main class="main step-2">
             <section class="sign">
                 <div class="form_list">
                     <div class="form_item id">
-                        <input type="email" class="input" placeholder="이메일" maxlength="50" name="email">
+                        <div class="input-wrapper">
+                            <input type="email" class="input" placeholder="이메일" maxlength="50" name="email">
+                            <img th:src="@{/resources/images/email.png}" alt="x" class="img">
+                        </div>
                     </div>
-
                     <div class="form_item nickname">
-                        <input type="text" class="input" placeholder="별명" maxlength="10">
+                        <div class="input-wrapper">
+                            <input type="text" class="input" placeholder="별명" maxlength="10">
+                            <img th:src="@{/resources/images/nickname.png}" alt="x" class="img">
+                        </div>
                     </div>
                     <div class="form_item password">
-                        <input type="password" class="input" placeholder="비밀번호">
+                        <div class="input-wrapper">
+                            <input type="password" class="input" placeholder="비밀번호">
+                            <img th:src="@{/resources/images/lock.png}" alt="x" class="img">
+                        </div>
                     </div>
-                    <div class="form_item passwordCheck">
-                        <input type="password" class="input" placeholder="비밀번호 재입력">
+                    <div class="form_item passwordCheck ">
+                        <div class="input-wrapper">
+                            <input type="password" class="input" placeholder="비밀번호 재입력">
+                            <img th:src="@{/resources/images/lock_check.png}" alt="x" class="img">
+                        </div>
+
                     </div>
                 </div>
                 <div class="form_list">
                     <div class="form_item name">
-                        <input type="text" class="input" placeholder="이름" maxlength="5" name="name">
+                        <div class="input-wrapper">
+                            <input type="text" class="input" placeholder="이름" maxlength="5" name="name">
+                            <img th:src="@{/resources/images/user.png}" alt="x" class="img">
+                        </div>
                     </div>
                     <div class="form_item birth">
-                        <input type="date" class="input" >
+                        <input type="date" class="input">
                     </div>
+
                     <div class="form_item gender">
-                        <ul class="gender_list" id="listGender">
-                            <li class="radio_item">
-                                <input type="radio" id="gender1" name="gender" value="M" class="blind">
-                            </li>
-                            <li class="radio_item">
-                                <input type="radio" id="gender2" name="gender" value="F" class="blind">
-                            </li>
-                        </ul>
+                        <input type="radio" name="gender" id="gender1" value="F">
+                        <label for="gender1">남자</label>
+                        <input type="radio" name="gender" id="gender2" value="M">
+                        <label for="gender2">여자</label>
                     </div>
 
                     <div class="form_item contact">
-                        <input type="text" class="input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)" >
+                        <input type="text" class="input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)">
                         <input type="button" class="contactCode" name="contactSend" value="인증번호 전송">
                     </div>
                     <div class="form_item contactVerify">
