@@ -10,9 +10,14 @@
           rel="stylesheet">
     <link rel="stylesheet" th:href="@{/resources/stylesheets/register.css}">
     <link rel="stylesheet" th:href="@{/resources/stylesheets/common.css}">
+    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer th:src="@{/resources/scripts/register.js}"></script>
 </head>
 <body>
+<div id="dialogCover"></div>
+<div id="addressLayer">
+
+</div>
 <form id="registerForm" class="container">
     <div class="inner">
         <h1 class="logo_we_meet">
@@ -259,9 +264,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </li>
                 </ul>
             </section>
-            <div class="button-container">
-                <input class="_object-button _blue button next" type="submit" value="다음">
-            </div>
+            <!--            <div class="button-container">-->
+            <!--                <input class="_object-button _blue button next" type="submit" value="다음">-->
+            <!--            </div>-->
         </main>
         <main class="main step-2">
             <section class="sign">
@@ -289,9 +294,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                             <input type="password" class="input" placeholder="비밀번호 재입력">
                             <img th:src="@{/resources/images/lock_check.png}" alt="x" class="img">
                         </div>
-
                     </div>
                 </div>
+
                 <div class="form_list">
                     <div class="form_item name">
                         <div class="input-wrapper">
@@ -309,14 +314,30 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                         <input type="radio" name="gender" id="gender2" value="M">
                         <label for="gender2">여자</label>
                     </div>
+                </div>
+                <div class="form_list">
+                    <div class="form_item addressFirst">
+                        <input readonly type="text" class="input" name="addressPostal" placeholder="우편번호">
+                        <input type="button" class="addressFind" name="addressFind" value="우편번호 찾기">
+                    </div>
+                    <div class="form_item addressSecond">
+                        <input readonly class="input" maxlength="100" name="addressPrimary"
+                               placeholder="'우편번호 찾기' 버튼을 클릭하여 주소를 지정해 주세요." type="text">
+                    </div>
+                    <div class="form_item addressThird">
+                        <input class="input" maxlength="100" name="addressSecondary"
+                               placeholder="상세 주소를 입력해 주세요. (건물 이름 및 동, 호 등)" type="text">
+                    </div>
+                </div>
 
+                <div class="form_list">
                     <div class="form_item contact">
                         <input type="text" class="input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)">
                         <input type="button" class="contactCode" name="contactSend" value="인증번호 전송">
                     </div>
                     <div class="form_item contactVerify">
                         <input disabled class="input" maxlength="6" name="ContactCode" placeholder="인증번호" type="text">
-                        <input disabled class="button" name="ContactVerify" type="button" value="인증번호 확인">
+                        <input disabled class="contactVerify" name="ContactVerify" type="button" value="인증번호 확인">
                     </div>
                 </div>
             </section>

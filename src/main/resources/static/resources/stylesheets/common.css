@@ -136,4 +136,45 @@ h1 {
     resize: none;
 }
 
-/**/
+/*dialog*/
+#dialogCover {
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #00000060;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transition-duration: 250ms;
+    transition-property: opacity;
+    transition-timing-function: linear;
+    z-index: 8;
+}
+
+#dialogCover.visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+#addressLayer {
+    top: 50%;
+    left: 50%;
+    background-color: #ffffff;
+    box-shadow: 0 0 1rem 0.0625rem #00000060;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    transform: scale(90%) translate(-50%, -50%);
+    transition-duration: 250ms;
+    transition-property: opacity, transform;
+    transition-timing-function: ease;
+    z-index: 9;
+}
+
+#addressLayer.visible {
+    opacity: 1;
+    pointer-events: all;
+    transform: scale(100%) translate(-50%, -50%);
+}
+

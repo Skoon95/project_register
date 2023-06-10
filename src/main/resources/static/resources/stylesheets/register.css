@@ -194,6 +194,13 @@ html{
     color: white;
 }
 
+/*address*/
+
+#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .contactVerify{
+    height: 100%;
+    flex: 1;
+    padding: 0;
+}
 
 
 
