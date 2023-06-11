@@ -14,4 +14,6 @@ public class HomeController {
         ModelAndView modelAndView = new ModelAndView("home/register");
         return modelAndView;
     }
+
+
 }

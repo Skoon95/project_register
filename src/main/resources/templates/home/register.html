@@ -270,6 +270,26 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
         </main>
         <main class="main step-2">
             <section class="sign">
+
+                <div class="form_list">
+                    <div class="form_item name">
+                        <div class="input-wrapper">
+                            <input type="text" class="input" placeholder="이름" maxlength="5" name="name">
+                            <img th:src="@{/resources/images/user.png}" alt="x" class="img">
+                        </div>
+                    </div>
+                    <div class="form_item birth">
+                        <input type="date" class="input">
+                    </div>
+
+                    <div class="form_item gender">
+                        <input type="radio" name="gender" id="gender1" value="F">
+                        <label for="gender1">남자</label>
+                        <input type="radio" name="gender" id="gender2" value="M">
+                        <label for="gender2">여자</label>
+                    </div>
+                </div>
+
                 <div class="form_list">
                     <div class="form_item id">
                         <div class="input-wrapper">
@@ -297,24 +317,6 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </div>
                 </div>
 
-                <div class="form_list">
-                    <div class="form_item name">
-                        <div class="input-wrapper">
-                            <input type="text" class="input" placeholder="이름" maxlength="5" name="name">
-                            <img th:src="@{/resources/images/user.png}" alt="x" class="img">
-                        </div>
-                    </div>
-                    <div class="form_item birth">
-                        <input type="date" class="input">
-                    </div>
-
-                    <div class="form_item gender">
-                        <input type="radio" name="gender" id="gender1" value="F">
-                        <label for="gender1">남자</label>
-                        <input type="radio" name="gender" id="gender2" value="M">
-                        <label for="gender2">여자</label>
-                    </div>
-                </div>
                 <div class="form_list">
                     <div class="form_item addressFirst">
                         <input readonly type="text" class="input" name="addressPostal" placeholder="우편번호">

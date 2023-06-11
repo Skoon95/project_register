@@ -2,6 +2,8 @@ const registerForm = document.getElementById('registerForm');
 const dialogCover = document.getElementById('dialogCover');
 const addressLayer = document.getElementById('addressLayer');
 
+
+// 다음API
 const showAddressLayer = () => {
     new daum.Postcode({
         oncomplete: (data) => {
@@ -27,6 +29,7 @@ const hideAddressLayer = () => {
     addressLayer.style.transform = 'scale(90%) translate(-50%, -50%)';
 };
 
+// 다음 눌럿을때 넘기기
 registerForm.onsubmit = e => {
     e.preventDefault();
     if (registerForm.classList.contains('step-1')){
@@ -35,6 +38,7 @@ registerForm.onsubmit = e => {
     }
 };
 
+// 주소찾기 클릭했을 때
 registerForm['addressFind'].onclick = () => {
     dialogCover.style.opacity = '1';
     dialogCover.style.pointerEvents = 'all';
