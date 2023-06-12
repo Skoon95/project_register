@@ -87,6 +87,11 @@ html{
     z-index: 9999;
 }
 
+/*화면 전환*/
+.step-2{
+    display: none;
+}
+
 /*2페이지*/
 
 #registerForm > .inner > .step-1 > .sign{
@@ -131,6 +136,12 @@ html{
     flex: 1;
     padding: 0;
 }
+
+#registerForm > .inner > .step-2 > .sign > .form_list > .form_item > .contactSend{
+    height: 100%;
+    flex: 1;
+    padding: 0;
+}
 /*img*/
 .input-wrapper >.input{
     flex: 1;
@@ -165,6 +176,24 @@ html{
 
     pointer-events: none;
 }
+
+/*warning*/
+registerForm > .main .warning {
+    max-height: 0;
+    color: #ef5350;
+    font-size: 0.9rem;
+    margin: unset;
+    overflow: hidden;
+    transition-duration: 500ms;
+    transition-property: max-height;
+    transition-timing-function: ease;
+}
+
+#registerForm > .main .warning.visible {
+    max-height: 3rem;
+}
+
+/**/
 
 .input-wrapper .input {
     padding-left: 30px; /* 이미지의 크기와 간격에 맞게 조절하세요 */

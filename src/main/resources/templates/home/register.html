@@ -12,6 +12,7 @@
     <link rel="stylesheet" th:href="@{/resources/stylesheets/common.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script defer th:src="@{/resources/scripts/register.js}"></script>
+    <script defer th:src="@{/resources/scripts/common.js}"></script>
 </head>
 <body>
 <div id="dialogCover"></div>
@@ -36,7 +37,7 @@
                 <ul class="term_list">
                     <li class="term_item">
                         <label class="_object-check check-container">
-                            <input type="checkbox" name="agreeService" class="check">
+                            <input type="checkbox" name="agreeService" class="check essential">
                             <span class="_checker"></span>
                             <b>[필수]</b>
                             <span class="title">이용약관 동의하기</span>
@@ -95,7 +96,7 @@
                     </li>
                     <li class="term_item">
                         <label class="_object-check check-container">
-                            <input type="checkbox" name="agreePrivacy" class="check">
+                            <input type="checkbox" name="agreePrivacy" class="check essential">
                             <span class="_checker"></span>
                             <b>[필수]</b>
                             <span class="title">개인정보 및 수집이용</span>
@@ -168,7 +169,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </li>
                     <li class="term_item">
                         <label class="_object-check check-container">
-                            <input type="checkbox" name="checkRealName" class="check">
+                            <input type="checkbox" name="checkRealName" class="check select">
                             <span class="_checker"></span>
                             <p>[선택]</p>
                             <span class="title">개인정보 및 수집이용</span>
@@ -181,7 +182,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </li>
                     <li class="term_item">
                         <label class="_object-check check-container">
-                            <input type="checkbox" name="checkRealName" class="check">
+                            <input type="checkbox" name="checkLocation" class="check select">
                             <span class="_checker"></span>
                             <p>[선택]</p>
                             <span class="title">위치기반 서비스 이용약관</span>
@@ -264,9 +265,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </li>
                 </ul>
             </section>
-            <!--            <div class="button-container">-->
-            <!--                <input class="_object-button _blue button next" type="submit" value="다음">-->
-            <!--            </div>-->
+            <div class="button-container">
+                <input disabled class="_object-button  button next" type="submit" value="다음">
+            </div>
         </main>
         <main class="main step-2">
             <section class="sign">
@@ -333,14 +334,16 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                 </div>
 
                 <div class="form_list">
-                    <div class="form_item contact">
+                    <div class="form_item contactOne">
                         <input type="text" class="input" maxlength="12" name="contact" placeholder="연락처 ('-' 없이 입력)">
-                        <input type="button" class="contactCode" name="contactSend" value="인증번호 전송">
+                        <input type="button" class="contactSend" name="contactSend" value="인증번호 전송">
                     </div>
-                    <div class="form_item contactVerify">
-                        <input disabled class="input" maxlength="6" name="ContactCode" placeholder="인증번호" type="text">
-                        <input disabled class="contactVerify" name="ContactVerify" type="button" value="인증번호 확인">
+                    <div class="form_item contactVerifyTwo">
+                        <input disabled class="input" maxlength="6" name="contactCode" placeholder="인증번호" type="text">
+                        <input disabled class="contactVerify" name="contactVerify" type="button" value="인증번호 확인">
                     </div>
+                    <input hidden name="contactSalt" type="hidden">
+                    <span class="warning" rel="contactWarning"></span>
                 </div>
             </section>
         </main>

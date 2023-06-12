@@ -8,7 +8,6 @@ public class UserEntity {
     private String name;
     private String nickname;
     private String contact;
-    private String contactProvider;
     private boolean isAdmin;
     private Date birth;
     private Date registeredAt;
@@ -48,14 +47,6 @@ public class UserEntity {
 
     public void setContact(String contact) {
         this.contact = contact;
-    }
-
-    public String getContactProvider() {
-        return contactProvider;
-    }
-
-    public void setContactProvider(String contactProvider) {
-        this.contactProvider = contactProvider;
     }
 
     public boolean isAdmin() {

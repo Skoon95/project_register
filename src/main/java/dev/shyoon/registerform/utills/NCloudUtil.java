@@ -43,7 +43,7 @@ public class NCloudUtil {
             put("type","SMS");
             put("contentType","COMM");
             put("countryCode","82");
-            put("from","WeMeet");
+            put("from","01092646977");
             put("content",content);
             put("messages", new JSONArray(){{
                 put(new JSONObject(){{

@@ -10,63 +10,70 @@ public class RegisterContactCodeEntity {
     private String salt;
     private Date createdAt;
     private Date expiresAt;
-    private boolean isExpires;
+    private boolean isExpired;
 
 
     public int getIndex() {
         return index;
     }
 
-    public void setIndex(int index) {
+    public RegisterContactCodeEntity setIndex(int index) {
         this.index = index;
+        return this;
     }
 
     public String getContact() {
         return contact;
     }
 
-    public void setContact(String contact) {
+    public RegisterContactCodeEntity setContact(String contact) {
         this.contact = contact;
+        return this;
     }
 
     public String getCode() {
         return code;
     }
 
-    public void setCode(String code) {
+    public RegisterContactCodeEntity setCode(String code) {
         this.code = code;
+        return this;
     }
 
     public String getSalt() {
         return salt;
     }
 
-    public void setSalt(String salt) {
+    public RegisterContactCodeEntity setSalt(String salt) {
         this.salt = salt;
+        return this;
     }
 
     public Date getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Date createdAt) {
+    public RegisterContactCodeEntity setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
+        return this;
     }
 
     public Date getExpiresAt() {
         return expiresAt;
     }
 
-    public void setExpiresAt(Date expiresAt) {
+    public RegisterContactCodeEntity setExpiresAt(Date expiresAt) {
         this.expiresAt = expiresAt;
+        return this;
     }
 
-    public boolean isExpires() {
-        return isExpires;
+    public boolean isExpired() {
+        return isExpired;
     }
 
-    public void setExpires(boolean expires) {
-        isExpires = expires;
+    public RegisterContactCodeEntity setExpired(boolean expired) {
+        isExpired = expired;
+        return this;
     }
 
     @Override
