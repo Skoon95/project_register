@@ -1,7 +1,6 @@
 const registerForm = document.getElementById('registerForm');
 const dialogCover = document.getElementById('dialogCover');
 const addressLayer = document.getElementById('addressLayer');
-const button = document.querySelector('.button.next');
 const agreeAllCheckbox = document.querySelector('input[name="agreeAll"]');
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 const nextButton = document.querySelector('.button-container input.next');
@@ -16,7 +15,7 @@ agreeAllCheckbox.addEventListener('change', function() {
     }
 
     // 필요한 경우 버튼 상태를 변경합니다.
-    updateNextButtonState();
+    updateButtonState();
 });
 
 // 필수 체크박스와 선택 체크박스의 상태 변경을 감지하여 버튼 상태를 업데이트합니다.
@@ -26,55 +25,55 @@ for (var i = 0; i < checkboxes.length; i++) {
         syncOptionalCheckboxes();
 
         // 버튼 상태를 업데이트합니다.
-        updateNextButtonState();
+        updateButtonState();
     });
 }
 
 // 선택 체크박스의 상태를 필요에 따라 동기화합니다.
 function syncOptionalCheckboxes() {
     var isAllChecked = true;
-    var isOptionalChecked = true;
-    var essentialCheckedCount = 0;
+    var isEssentialChecked = true;
 
     for (var i = 0; i < checkboxes.length; i++) {
         if (!checkboxes[i].checked) {
             isAllChecked = false;
-            if (checkboxes[i].name === 'checkRealName') {
-                isOptionalChecked = false;
-            }
-        } else {
             if (checkboxes[i].classList.contains('essential')) {
-                essentialCheckedCount++;
+                isEssentialChecked = false;
             }
         }
     }
 
+    // agreeAllCheckbox와 필수 체크박스의 상태를 확인하여 동기화합니다.
     if (isAllChecked) {
         agreeAllCheckbox.checked = true;
+    } else {
+        agreeAllCheckbox.checked = false;
     }
 
-    if (isOptionalChecked && essentialCheckedCount === 2) {
+    if (isEssentialChecked) {
         for (var i = 0; i < checkboxes.length; i++) {
-            if (checkboxes[i].name === 'checkRealName') {
+            if (checkboxes[i].classList.contains('essential')) {
                 checkboxes[i].checked = true;
             }
         }
     }
 }
-// 버튼 상태를 업데이트합니다.
-function updateNextButtonState() {
-    var isCheckedAll = agreeAllCheckbox.checked;
-    var essentialCheckedCount = 0;
 
-    // 필수 체크박스 개수를 확인합니다.
+// 버튼 상태를 업데이트합니다.
+function updateButtonState() {
+    var isAllChecked = true;
+    var isEssentialChecked = true;
+
     for (var i = 0; i < checkboxes.length; i++) {
-        if (checkboxes[i].classList.contains('essential') && checkboxes[i].checked) {
-            essentialCheckedCount++;
+        if (!checkboxes[i].checked) {
+            isAllChecked = false;
+            if (checkboxes[i].classList.contains('essential')) {
+                isEssentialChecked = false;
+            }
         }
     }
 
-    // agreeAllCheckbox와 essential 체크박스의 상태를 확인하여 버튼 상태를 업데이트합니다.
-    if (isCheckedAll && essentialCheckedCount === 2) {
+    if (isAllChecked || isEssentialChecked) {
         nextButton.removeAttribute('disabled');
         nextButton.classList.add('_blue');
     } else {
