@@ -150,9 +150,9 @@ registerForm.addEventListener('submit', function(e) {
             registerForm['name'].focus();
             return;
         }
-        if (registerForm['password'].value === '') {
-            registerForm.passwordWarning.show('비밀번호를 입력해 주세요.');
-            registerForm['password'].focus();
+        if (registerForm['email'].value === '') {
+            registerForm.emailWarning.show('이메일을 입력해 주세요.');
+            registerForm['email'].focus();
             return;
         }
         if (registerForm['email'].value === '') {
@@ -164,7 +164,6 @@ registerForm.addEventListener('submit', function(e) {
 
 });
 
-// test
 
 
 

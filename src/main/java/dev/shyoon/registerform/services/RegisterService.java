@@ -1,6 +1,8 @@
 package dev.shyoon.registerform.services;
 
 import dev.shyoon.registerform.entities.RegisterContactCodeEntity;
+import dev.shyoon.registerform.entities.UserEntity;
+import dev.shyoon.registerform.enums.RegisterResult;
 import dev.shyoon.registerform.enums.SendRegisterContactCodeResult;
 import dev.shyoon.registerform.enums.VerifyRegisterContactCodeResult;
 import dev.shyoon.registerform.mappers.UserMapper;
@@ -10,6 +12,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.context.Context;
 
 import java.util.Date;
 
@@ -66,4 +69,31 @@ public class RegisterService {
                 ? VerifyRegisterContactCodeResult.SUCCESS
                 : VerifyRegisterContactCodeResult.FAILURE;
     }
+
+
+    public RegisterResult register(UserEntity user,RegisterContactCodeEntity registerContactCode){
+
+        if (this.userMapper.selectUserByEmail(user.getEmail()) != null) {
+            return RegisterResult.FAILURE_DUPLICATE_EMAIL;
+        }
+        if (this.userMapper.selectUserByContact(user.getContact()) != null) {
+            return RegisterResult.FAILURE_DUPLICATE_CONTACT;
+        }
+        if (this.userMapper.selectUserByNickname(user.getNickname()) != null) {
+            return RegisterResult.FAILURE_DUPLICATE_NICKNAME;
+        }
+        registerContactCode = this.userMapper.selectRegisterContactCodeByContactSalt(registerContactCode);
+        if (registerContactCode == null || !registerContactCode.isExpired()) {
+            return RegisterResult.FAILURE;
+        }
+        user.setPassword(CryptoUtil.hashSha512(user.getPassword()));
+
+
+        return this.userMapper.insertUser(user) > 0
+                ? RegisterResult.SUCCESS
+                : RegisterResult.FAILURE;
+    }
+
+
+
 }

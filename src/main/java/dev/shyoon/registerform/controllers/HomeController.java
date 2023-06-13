@@ -1,6 +1,8 @@
 package dev.shyoon.registerform.controllers;
 
 import dev.shyoon.registerform.entities.RegisterContactCodeEntity;
+import dev.shyoon.registerform.entities.UserEntity;
+import dev.shyoon.registerform.enums.RegisterResult;
 import dev.shyoon.registerform.enums.SendRegisterContactCodeResult;
 import dev.shyoon.registerform.enums.VerifyRegisterContactCodeResult;
 import dev.shyoon.registerform.services.RegisterService;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping(value = "/register")
@@ -58,6 +62,17 @@ public class HomeController {
     public String patchContactCode(RegisterContactCodeEntity registerContactCode){
         VerifyRegisterContactCodeResult result = this.registerService.verifyRegisterContactCodeResult(registerContactCode);
         JSONObject responseObject = new JSONObject() {{
+           put("result",result.name().toLowerCase());
+        }};
+        return responseObject.toString();
+    }
+
+    @RequestMapping(value = "register",
+    method = RequestMethod.POST,
+    produces = MediaType.APPLICATION_JSON_VALUE)
+    public String postRegister(UserEntity user,RegisterContactCodeEntity registerContactCode){
+        RegisterResult result = this.registerService.register(user, registerContactCode);
+        JSONObject responseObject = new JSONObject(){{
            put("result",result.name().toLowerCase());
         }};
         return responseObject.toString();
