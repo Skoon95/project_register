@@ -4,6 +4,10 @@ const addressLayer = document.getElementById('addressLayer');
 const agreeAllCheckbox = document.querySelector('input[name="agreeAll"]');
 const checkboxes = document.querySelectorAll('input[type="checkbox"]');
 const nextButton = document.querySelector('.button-container input.next');
+const step1 = document.querySelector('.main.step-1');
+const step2 = document.querySelector('.main.step-2');
+
+
 
 // agreeAllCheckbox의 변경 이벤트 리스너를 추가합니다.
 agreeAllCheckbox.addEventListener('change', function() {
@@ -127,28 +131,64 @@ addressLayer.show = () => {
 };
 addressLayer.hide = () => addressLayer.classList.remove('visible');
 
-// 다음 눌럿을때 넘기기
-registerForm.onsubmit = e => {
-    e.preventDefault();
-    if (registerForm.classList.contains('step-1')){
-        registerForm.classList.remove('step-1');
-        registerForm.classList.add('step-2');
-
-        var step1 = document.querySelector('.main.step-1');
-        step1.style.display = 'none';
-
-        // step-2 요소를 보여줍니다.
-        var step2 = document.querySelector('.main.step-2');
-        step2.style.display = 'block';
-
-    }
-};
-
 // 주소찾기 클릭했을 때
 registerForm['addressFind'].onclick = () => {
     dialogCover.show();
     addressLayer.show();
 };
+
+
+// 다음 눌럿을때 넘기기
+registerForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    step1.style.display = 'none';
+    step2.style.display = 'block';
+});
+
+
+
+
+
+// warningList
+// birthWarning
+registerForm.birthWarning = registerForm.querySelector('[rel="birthWarning"]');
+registerForm.birthWarning.show = (text) => {
+    registerForm.birthWarning.innerText = text;
+    registerForm.birthWarning.classList.add('visible');
+};
+registerForm.birthWarning.hide = () => registerForm.birthWarning.classList.remove('visible');
+
+// genderWarning
+registerForm.genderWarning = registerForm.querySelector('[rel="genderWarning"]');
+registerForm.genderWarning.show = (text) => {
+    registerForm.genderWarning.innerText = text;
+    registerForm.genderWarning.classList.add('visible');
+};
+registerForm.genderWarning.hide = () => registerForm.genderWarning.classList.remove('visible');
+
+// emailWarning
+registerForm.emailWarning = registerForm.querySelector('[rel="emailWarning"]');
+registerForm.emailWarning.show = (text) => {
+    registerForm.emailWarning.innerText = text;
+    registerForm.emailWarning.classList.add('visible');
+};
+registerForm.emailWarning.hide = () => registerForm.emailWarning.classList.remove('visible');
+
+//nicknameWarning
+registerForm.nicknameWarning = registerForm.querySelector('[rel="nicknameWarning"]');
+registerForm.nicknameWarning.show = (text) => {
+    registerForm.nicknameWarning.innerText = text;
+    registerForm.nicknameWarning.classList.add('visible');
+};
+registerForm.nicknameWarning.hide = () => registerForm.nicknameWarning.classList.remove('visible');
+
+// passwordWarning
+registerForm.passwordWarning = registerForm.querySelector('[rel="passwordWarning"]');
+registerForm.passwordWarning.show = (text) => {
+    registerForm.passwordWarning.innerText = text;
+    registerForm.passwordWarning.classList.add('visible');
+};
+registerForm.passwordWarning.hide = () => registerForm.passwordWarning.classList.remove('visible');
 
 // contactWarning
 registerForm.contactWarning = registerForm.querySelector('[rel="contactWarning"]');
@@ -237,6 +277,8 @@ registerForm['contactVerify'].addEventListener('click', () => {
                     case 'success':
                         registerForm['contactCode'].setAttribute('disabled', 'disabled');
                         registerForm['contactVerify'].setAttribute('disabled', 'disabled');
+                        nextButton.removeAttribute('disabled');
+                        nextButton.classList.add('_blue');
                         registerForm.contactWarning.show('인증이 완료되었습니다.');
                         break;
                     default:

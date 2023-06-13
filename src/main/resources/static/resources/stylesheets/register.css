@@ -88,16 +88,23 @@ html{
 }
 
 /*화면 전환*/
-.step-2{
-    display: none;
+.step-1{
+    display: block;
 }
 
-/*2페이지*/
+.step-2{
+    display: none;
+    margin-top: 2rem;
+}
+
+
 
 #registerForm > .inner > .step-1 > .sign{
     margin-top: 3rem;
     position: relative;
 }
+
+/*2페이지*/
 
 #registerForm > .inner > .step-2 > .sign > .form_list{
     margin-bottom: 30px;
@@ -231,6 +238,20 @@ registerForm > .main .warning {
     padding: 0;
 }
 
+/*step-2 next button*/
+#registerForm > .inner > .step-2> .button-container > .next{
+    width: 500px;
+    padding: 14px 0;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 700;
+    line-height: 22px;
 
+    position: fixed;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+}
 
 

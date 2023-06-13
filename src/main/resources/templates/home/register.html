@@ -271,7 +271,6 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
         </main>
         <main class="main step-2">
             <section class="sign">
-
                 <div class="form_list">
                     <div class="form_item name">
                         <div class="input-wrapper">
@@ -290,6 +289,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                         <label for="gender2">여자</label>
                     </div>
                 </div>
+                <span class="warning name" rel="nameWarning"></span>
+                <span class="warning birth" rel="birthWarning"></span>
+                <span class="warning gender" rel="genderWarning"></span>
 
                 <div class="form_list">
                     <div class="form_item id">
@@ -317,6 +319,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                         </div>
                     </div>
                 </div>
+                <span class="warning email" rel="emailWarning"></span>
+                <span class="warning nickname" rel="nicknameWarning"></span>
+                <span class="warning password" rel="passwordWarning"></span>
 
                 <div class="form_list">
                     <div class="form_item addressFirst">
@@ -332,6 +337,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                                placeholder="상세 주소를 입력해 주세요. (건물 이름 및 동, 호 등)" type="text">
                     </div>
                 </div>
+                <span class="warning address" rel="addressWarning"></span>
 
                 <div class="form_list">
                     <div class="form_item contactOne">
@@ -343,8 +349,18 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                         <input disabled class="contactVerify" name="contactVerify" type="button" value="인증번호 확인">
                     </div>
                     <input hidden name="contactSalt" type="hidden">
-                    <span class="warning" rel="contactWarning"></span>
+
                 </div>
+                <span class="warning" rel="contactWarning"></span>
+            </section>
+            <div class="button-container">
+                <input disabled class="_object-button  button next" type="submit" value="다음">
+            </div>
+        </main>
+        <main class="main step-3">
+            <section class="complete">
+                <span class="text">완료</span>
+                <a href="#">로그인</a>
             </section>
         </main>
     </div>
