@@ -143,13 +143,42 @@ registerForm.addEventListener('submit', function(e) {
     e.preventDefault();
     step1.style.display = 'none';
     step2.style.display = 'block';
+
+    if (getComputedStyle(step2).display === "block") {
+        if (registerForm['name'].value === '') {
+            registerForm.nameWarning.show('이름을 입력해 주세요.');
+            registerForm['name'].focus();
+            return;
+        }
+        if (registerForm['password'].value === '') {
+            registerForm.passwordWarning.show('비밀번호를 입력해 주세요.');
+            registerForm['password'].focus();
+            return;
+        }
+        if (registerForm['email'].value === '') {
+            registerForm.emailWarning.show('이메일을 입력해 주세요.');
+            registerForm['email'].focus();
+            return;
+        }
+    }
+
 });
 
+// test
 
 
 
 
 // warningList
+
+// birthWarning
+registerForm.nameWarning = registerForm.querySelector('[rel="nameWarning"]');
+registerForm.nameWarning.show = (text) => {
+    registerForm.nameWarning.innerText = text;
+    registerForm.nameWarning.classList.add('visible');
+};
+registerForm.nameWarning.hide = () => registerForm.nameWarning.classList.remove('visible');
+
 // birthWarning
 registerForm.birthWarning = registerForm.querySelector('[rel="birthWarning"]');
 registerForm.birthWarning.show = (text) => {
