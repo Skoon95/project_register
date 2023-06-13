@@ -153,7 +153,7 @@ html{
 }
 
 /*step-2 next button*/
-#registerForm > .inner > .step-2> .button-container > .next{
+#registerForm > .inner > .step-2> .button-container > .complete{
     width: 500px;
     padding: 14px 0;
     border-radius: 6px;

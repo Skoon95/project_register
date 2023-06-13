@@ -278,11 +278,11 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                             <img th:src="@{/resources/images/user.png}" alt="x" class="img">
                         </div>
                     </div>
-                    <div class="form_item birth">
-                        <input type="date" class="input">
+                    <div class="form_item">
+                        <input type="date" class="input" name="birth">
                     </div>
 
-                    <div class="form_item gender">
+                    <div class="form_item">
                         <input type="radio" name="gender" id="gender1" value="F">
                         <label for="gender1">남자</label>
                         <input type="radio" name="gender" id="gender2" value="M">
@@ -300,21 +300,21 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                             <img th:src="@{/resources/images/email.png}" alt="x" class="img">
                         </div>
                     </div>
-                    <div class="form_item nickname">
+                    <div class="form_item">
                         <div class="input-wrapper">
-                            <input type="text" class="input" placeholder="별명" maxlength="10">
+                            <input type="text" class="input" placeholder="별명" maxlength="10" name=" nickname">
                             <img th:src="@{/resources/images/nickname.png}" alt="x" class="img">
                         </div>
                     </div>
-                    <div class="form_item password">
+                    <div class="form_item">
                         <div class="input-wrapper">
-                            <input type="password" class="input" placeholder="비밀번호">
+                            <input type="password" class="input" placeholder="비밀번호" name="password">
                             <img th:src="@{/resources/images/lock.png}" alt="x" class="img">
                         </div>
                     </div>
-                    <div class="form_item passwordCheck ">
+                    <div class="form_item">
                         <div class="input-wrapper">
-                            <input type="password" class="input" placeholder="비밀번호 재입력">
+                            <input type="password" class="input" placeholder="비밀번호 재입력" name="passwordCheck">
                             <img th:src="@{/resources/images/lock_check.png}" alt="x" class="img">
                         </div>
                     </div>
@@ -354,7 +354,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                 <span class="warning" rel="contactWarning"></span>
             </section>
             <div class="button-container">
-                <input disabled class="_object-button  button next" type="submit" value="다음">
+                <input disabled class="_object-button  button complete" type="submit" value="완료">
             </div>
         </main>
         <main class="main step-3">
