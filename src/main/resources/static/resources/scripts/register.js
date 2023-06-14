@@ -7,7 +7,7 @@ const nextButton = document.querySelector('.button-container input.next');
 const completeButton = document.querySelector('.button-container input.complete');
 const step1 = document.querySelector('.main.step-1');
 const step2 = document.querySelector('.main.step-2');
-const step3 = document.querySelector('.main.step-2');
+const step3 = document.querySelector('.main.step-3');
 
 
 // agreeAllCheckbox의 변경 이벤트 리스너를 추가합니다.
@@ -221,7 +221,7 @@ registerForm.addEventListener('submit', function (e) {
 
 // warningList
 
-// birthWarning
+// nameWarning
 registerForm.nameWarning = registerForm.querySelector('[rel="nameWarning"]');
 registerForm.nameWarning.show = (text) => {
     registerForm.nameWarning.innerText = text;
