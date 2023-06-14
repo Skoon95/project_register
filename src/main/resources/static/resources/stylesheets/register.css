@@ -204,21 +204,6 @@ html{
     pointer-events: none;
 }
 
-/*warning*/
-registerForm > .main .warning {
-    max-height: 0;
-    color: #ef5350;
-    font-size: 0.9rem;
-    margin: unset;
-    overflow: hidden;
-    transition-duration: 500ms;
-    transition-property: max-height;
-    transition-timing-function: ease;
-}
-
-#registerForm > .main .warning.visible {
-    max-height: 3rem;
-}
 
 /**/
 
