@@ -11,8 +11,8 @@
     <link rel="stylesheet" th:href="@{/resources/stylesheets/register.css}">
     <link rel="stylesheet" th:href="@{/resources/stylesheets/common.css}">
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script defer th:src="@{/resources/scripts/register.js}"></script>
     <script defer th:src="@{/resources/scripts/common.js}"></script>
+    <script defer th:src="@{/resources/scripts/register.js}"></script>
 </head>
 <body>
 <div id="dialogCover"></div>
@@ -283,9 +283,9 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </div>
 
                     <div class="form_item">
-                        <input type="radio" name="gender" id="gender1" value="F">
+                        <input type="radio" name="gender" id="gender1" value="M">
                         <label for="gender1">남자</label>
-                        <input type="radio" name="gender" id="gender2" value="M">
+                        <input type="radio" name="gender" id="gender2" value="F">
                         <label for="gender2">여자</label>
                     </div>
                 </div>
@@ -302,7 +302,7 @@ eXpert 서비스 및 eXpert 센터 가입 등록정보 : 신청일로부터 6개
                     </div>
                     <div class="form_item">
                         <div class="input-wrapper">
-                            <input type="text" class="input" placeholder="별명" maxlength="10" name=" nickname">
+                            <input type="text" class="input" placeholder="별명" maxlength="10" name="nickname">
                             <img th:src="@{/resources/images/nickname.png}" alt="x" class="img">
                         </div>
                     </div>

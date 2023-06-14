@@ -12,10 +12,15 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.security.NoSuchAlgorithmException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Controller
 @RequestMapping(value = "/register")
@@ -70,7 +75,16 @@ public class HomeController {
     @RequestMapping(value = "register",
     method = RequestMethod.POST,
     produces = MediaType.APPLICATION_JSON_VALUE)
-    public String postRegister(UserEntity user,RegisterContactCodeEntity registerContactCode){
+    @ResponseBody
+    public String postRegister(UserEntity user
+            ,RegisterContactCodeEntity registerContactCode
+            ,@RequestParam(value = "birthStr")String birthStr) throws ParseException,NoSuchAlgorithmException {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Date birth = sdf.parse(birthStr);
+        user.setBirth(birth);
+
+
+
         RegisterResult result = this.registerService.register(user, registerContactCode);
         JSONObject responseObject = new JSONObject(){{
            put("result",result.name().toLowerCase());

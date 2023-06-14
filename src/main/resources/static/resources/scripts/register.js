@@ -10,9 +10,8 @@ const step2 = document.querySelector('.main.step-2');
 const step3 = document.querySelector('.main.step-2');
 
 
-
 // agreeAllCheckbox의 변경 이벤트 리스너를 추가합니다.
-agreeAllCheckbox.addEventListener('change', function() {
+agreeAllCheckbox.addEventListener('change', function () {
     var isChecked = agreeAllCheckbox.checked;
 
     // 모든 체크박스의 상태를 agreeAllCheckbox와 동일하게 변경합니다.
@@ -26,7 +25,7 @@ agreeAllCheckbox.addEventListener('change', function() {
 
 // 필수 체크박스와 선택 체크박스의 상태 변경을 감지하여 버튼 상태를 업데이트합니다.
 for (var i = 0; i < checkboxes.length; i++) {
-    checkboxes[i].addEventListener('change', function() {
+    checkboxes[i].addEventListener('change', function () {
         // 필요한 경우 선택 체크박스의 상태를 동기화합니다.
         syncOptionalCheckboxes();
 
@@ -141,7 +140,7 @@ registerForm['addressFind'].onclick = () => {
 
 
 // 다음 눌럿을때 넘기기
-registerForm.addEventListener('submit', function(e) {
+registerForm.addEventListener('submit', function (e) {
     e.preventDefault();
     step1.style.display = 'none';
     step2.style.display = 'block';
@@ -163,11 +162,61 @@ registerForm.addEventListener('submit', function(e) {
             return;
         }
     }
+    // 회원가입
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    formData.append('email', registerForm['email'].value);
+    formData.append('name', registerForm['name'].value);
+    formData.append('nickname', registerForm['nickname'].value);
+    formData.append('contact', registerForm['contact'].value);
+    formData.append('code', registerForm['contactCode'].value);
+    formData.append('salt', registerForm['contactSalt'].value);
+    formData.append('birthStr', registerForm['birth'].value);
+    formData.append('addressPostal', registerForm['addressPostal'].value);
+    formData.append('addressPrimary', registerForm['addressPrimary'].value);
+    formData.append('addressSecondary', registerForm['addressSecondary'].value);
+    formData.append('gender', registerForm['gender'].value);
+    formData.append('password', registerForm['password'].value);
+    xhr.open('POST', '/register/register');
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const responseObject = JSON.parse(xhr.responseText);
+                switch (responseObject.result) {
+                    case 'failure':
+                        registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+                        break;
+                    case 'failure_duplicate_email':
+                        registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
+                        registerForm['email'].focus();
+                        registerForm['email'].select();
+                        break;
+                    case 'failure_duplicate_nickname':
+                        registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
+                        registerForm['nickname'].focus();
+                        registerForm['nickname'].select();
+                        break;
+                    case 'failure_duplicate_contact':
+                        registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
+                        registerForm['contact'].focus();
+                        registerForm['contact'].select();
+                        break;
+                    case 'success':
+                        step2.style.display = 'none';
+                        step3.style.display = 'block';
+                        break;
+                    default:
+                        registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+                }
+            } else {
+                registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+            }
+        }
+    };
+    xhr.send(formData);
+
 
 });
-
-
-
 
 
 // warningList
@@ -324,59 +373,8 @@ registerForm['contactVerify'].addEventListener('click', () => {
     xhr.send(formData);
 });
 
-// 회원가입
 
-registerForm['complete'].addEventListener('click',() =>{
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append('email', registerForm['email'].value);
-    formData.append('name',registerForm['name'].value);
-    formData.append('nickname',registerForm['nickname'].value);
-    formData.append('contact',registerForm['contact'].value);
-    formData.append('code', registerForm['contactCode'].value);
-    formData.append('salt', registerForm['contactSalt'].value);
-    formData.append('birth',registerForm['birth'].value);
-    formData.append('addressPostal',registerForm['addressPostal'].value);
-    formData.append('addressPrimary',registerForm['addressPrimary'].value);
-    formData.append('addressSecondary',registerForm['addressSecondary'].value);
-    formData.append('gender',registerForm['gender'].value);
-    formData.append('password',registerForm['password'].value);
-    xhr.open('POST', '/register/register');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const responseObject = JSON.parse(xhr.responseText);
-                switch (responseObject.result){
-                    case 'failure':
-                        registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                        break;
-                    case 'failure_duplicate_email':
-                        registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
-                        registerForm['email'].focus();
-                        registerForm['email'].select();
-                        break;
-                    case 'failure_duplicate_nickname':
-                        registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
-                        registerForm['nickname'].focus();
-                        registerForm['nickname'].select();
-                        break;
-                    case 'failure_duplicate_contact':
-                        registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
-                        registerForm['contact'].focus();
-                        registerForm['contact'].select();
-                        break;
-                    case 'success':
-                        step2.style.display = 'none';
-                        step3.style.display = 'block';
-                        break;
-                    default:
-                        registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
-                }
-            } else {
-                registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-            }
-        }
-    };
-    xhr.send(formData);
-});
+
+
+
 

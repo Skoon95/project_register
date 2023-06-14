@@ -93,11 +93,9 @@
                 IFNULL(#{isExpired}, DEFAULT(`expired_flag`)))
     </insert>
 
-    <insert id=" insertUser"
+    <insert id="insertUser"
             parameterType="dev.shyoon.registerform.entities.UserEntity">
-        INSERT INTO `wemeet_project`.`users`(`email`, `name`, `nickname`, `contact`, `admin_flag`, `birth`,
-                                             `registered_at`, `address_postal`, `address_primary`, `address_secondary`,
-                                             `gender`, `password`)
+        INSERT INTO `wemeet_project`.`users`(`email`, `name`, `nickname`, `contact`, `admin_flag`, `birth`,`registered_at`,`address_postal`, `address_primary`,`address_secondary`, `gender`, `password`)
         VALUES (#{email},
                 #{name},
                 #{nickname},

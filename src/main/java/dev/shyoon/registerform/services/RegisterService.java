@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.context.Context;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 
 @Service
@@ -71,7 +72,7 @@ public class RegisterService {
     }
 
 
-    public RegisterResult register(UserEntity user,RegisterContactCodeEntity registerContactCode){
+    public RegisterResult register(UserEntity user,RegisterContactCodeEntity registerContactCode)throws NoSuchAlgorithmException {
 
         if (this.userMapper.selectUserByEmail(user.getEmail()) != null) {
             return RegisterResult.FAILURE_DUPLICATE_EMAIL;
