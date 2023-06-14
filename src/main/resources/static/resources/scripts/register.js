@@ -214,8 +214,6 @@ registerForm.addEventListener('submit', function (e) {
         }
     };
     xhr.send(formData);
-
-
 });
 
 
