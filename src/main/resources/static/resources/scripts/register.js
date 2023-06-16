@@ -90,19 +90,35 @@ function updateButtonState() {
 
 // 페이지 전환시 초기화
 registerForm.show = () => {
-    // registerForm['agreeServiceTerm'].checked = false;
-    // registerForm['agreePrivacyTerm'].checked = false;
-    // registerForm.termWarning.hide();
-    //
-    // registerForm['email'].value = '';
-    // registerForm.emailWarning.hide();
-    //
-    // registerForm['password'].value = '';
-    // registerForm['passwordCheck'].value = '';
-    // registerForm.passwordWarning.hide();
-    //
-    // registerForm['nickname'].value = '';
-    // registerForm.nicknameWarning.hide();
+
+    registerForm['name'].value='';
+    registerForm.nameWarning.hide();
+
+    registerForm['birth'].value='';
+    registerForm.birthWarning.hide();
+
+
+
+    // registerForm['gender'].value='';
+    // registerForm.genderWarning.hide();
+
+    registerForm['email'].value = '';
+    registerForm.emailWarning.hide();
+
+    registerForm['nickname'].value='';
+    registerForm.nicknameWarning.hide();
+
+    registerForm['password'].value = '';
+    registerForm['passwordCheck'].value = '';
+    registerForm.passwordWarning.hide();
+
+    registerForm['addressPostal'].value='';
+    registerForm['addressPrimary'].value='';
+    registerForm['addressSecondary'].value='';
+    registerForm.addressWarning.hide();
+
+
+
 
     registerForm['contact'].value = '';
     registerForm['contact'].removeAttribute('disabled');
@@ -138,12 +154,15 @@ registerForm['addressFind'].onclick = () => {
     addressLayer.show();
 };
 
-
-// 다음 눌럿을때 넘기기
-registerForm.addEventListener('submit', function (e) {
-    e.preventDefault();
+//1페이지 넘기기
+nextButton.addEventListener('click', function() {
     step1.style.display = 'none';
     step2.style.display = 'block';
+});
+
+// 2페이지 warning&회원가입
+registerForm.onsubmit = e =>{
+    e.preventDefault();
 
     if (getComputedStyle(step2).display === "block") {
         if (registerForm['name'].value === '') {
@@ -151,70 +170,108 @@ registerForm.addEventListener('submit', function (e) {
             registerForm['name'].focus();
             return;
         }
-        if (registerForm['email'].value === '') {
-            registerForm.emailWarning.show('이메일을 입력해 주세요.');
-            registerForm['email'].focus();
+        if (registerForm['birth'].value === '') {
+            registerForm.birthWarning.show('생년월일을 입력해 주세요.');
+            registerForm['birth'].focus();
             return;
+        }
+        if (!registerForm['gender1'].checked && !registerForm['gender2'].checked){
+            registerForm.genderWarning.show('성별을 선택해 주세요');
+
         }
         if (registerForm['email'].value === '') {
             registerForm.emailWarning.show('이메일을 입력해 주세요.');
             registerForm['email'].focus();
             return;
         }
-    }
-    // 회원가입
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    formData.append('email', registerForm['email'].value);
-    formData.append('name', registerForm['name'].value);
-    formData.append('nickname', registerForm['nickname'].value);
-    formData.append('contact', registerForm['contact'].value);
-    formData.append('code', registerForm['contactCode'].value);
-    formData.append('salt', registerForm['contactSalt'].value);
-    formData.append('birthStr', registerForm['birth'].value);
-    formData.append('addressPostal', registerForm['addressPostal'].value);
-    formData.append('addressPrimary', registerForm['addressPrimary'].value);
-    formData.append('addressSecondary', registerForm['addressSecondary'].value);
-    formData.append('gender', registerForm['gender'].value);
-    formData.append('password', registerForm['password'].value);
-    xhr.open('POST', '/register/register');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const responseObject = JSON.parse(xhr.responseText);
-                switch (responseObject.result) {
-                    case 'failure':
-                        registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                        break;
-                    case 'failure_duplicate_email':
-                        registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
-                        registerForm['email'].focus();
-                        registerForm['email'].select();
-                        break;
-                    case 'failure_duplicate_nickname':
-                        registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
-                        registerForm['nickname'].focus();
-                        registerForm['nickname'].select();
-                        break;
-                    case 'failure_duplicate_contact':
-                        registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
-                        registerForm['contact'].focus();
-                        registerForm['contact'].select();
-                        break;
-                    case 'success':
-                        step2.style.display = 'none';
-                        step3.style.display = 'block';
-                        break;
-                    default:
-                        registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+
+        if (!new RegExp('^(?=.{10,50}$)([\\da-zA-Z\\-_]{5,25})@([\\da-z][\\da-z\\-]*[\\da-z]\\.)?([\\da-z][\\da-z\\-]*[\\da-z])\\.([a-z]{2,15})(\\.[a-z]{2})?$').test(registerForm['email'].value)) {
+            registerForm.emailWarning.show('올바른 이메일을 입력해 주세요.');
+            registerForm['email'].focus();
+            registerForm['email'].select();
+            return;
+        }
+        if (registerForm['nickname'].value === '') {
+            registerForm.nicknameWarning.show('별명을 입력해 주세요.');
+            registerForm['nickname'].focus();
+            return;
+        }
+        if (!new RegExp('^([가-힣]{2,10})$').test(registerForm['nickname'].value)) {
+            registerForm.nicknameWarning.show('올바른 별명을 입력해 주세요.');
+            registerForm['nickname'].focus();
+            registerForm['nickname'].select();
+            return;
+        }
+        if (registerForm['password'].value === '') {
+            registerForm.passwordWarning.show('비밀번호를 입력해 주세요.');
+            registerForm['password'].focus();
+            return;
+        }
+        if (!new RegExp('^([\\da-zA-Z`~!@#$%^&*()\\-_=+\\[{\\]};:\'",<.>/?]{8,50})$').test(registerForm['password'].value)) {
+            registerForm.passwordWarning.show('올바른 비밀번호를 입력해 주세요.');
+            registerForm['password'].focus();
+            registerForm['password'].select();
+            return;
+        }
+        // 회원가입
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        formData.append('email', registerForm['email'].value);
+        formData.append('name', registerForm['name'].value);
+        formData.append('nickname', registerForm['nickname'].value);
+        formData.append('contact', registerForm['contact'].value);
+        formData.append('code', registerForm['contactCode'].value);
+        formData.append('salt', registerForm['contactSalt'].value);
+        formData.append('birthStr', registerForm['birth'].value);
+        formData.append('addressPostal', registerForm['addressPostal'].value);
+        formData.append('addressPrimary', registerForm['addressPrimary'].value);
+        formData.append('addressSecondary', registerForm['addressSecondary'].value);
+        formData.append('gender', registerForm['gender'].value);
+        formData.append('password', registerForm['password'].value);
+        xhr.open('POST', '/register/register');
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const responseObject = JSON.parse(xhr.responseText);
+                    switch (responseObject.result) {
+                        case 'failure':
+                            registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+                            break;
+                        case 'failure_duplicate_email':
+                            registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
+                            registerForm['email'].focus();
+                            registerForm['email'].select();
+                            break;
+                        case 'failure_duplicate_nickname':
+                            registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
+                            registerForm['nickname'].focus();
+                            registerForm['nickname'].select();
+                            break;
+                        case 'failure_duplicate_contact':
+                            registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
+                            registerForm['contact'].focus();
+                            registerForm['contact'].select();
+                            break;
+                        case 'success':
+                            step2.style.display = 'none';
+                            step3.style.display = 'block';
+                            break;
+                        default:
+                            registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+                    }
+                } else {
+                    registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
                 }
-            } else {
-                registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
             }
-        }
-    };
-    xhr.send(formData);
-});
+        };
+        xhr.send(formData);
+    }
+
+
+}
+
+
+
 
 
 // warningList
@@ -274,6 +331,14 @@ registerForm.contactWarning.show = (text) => {
     registerForm.contactWarning.classList.add('visible');
 };
 registerForm.contactWarning.hide = () => registerForm.contactWarning.classList.remove('visible');
+
+// addressWarning
+registerForm.addressWarning = registerForm.querySelector('[rel="addressWarning"]');
+registerForm.addressWarning.show = (text) => {
+    registerForm.addressWarning.innerText = text;
+    registerForm.addressWarning.classList.add('visible');
+};
+registerForm.addressWarning.hide = () => registerForm.addressWarning.classList.remove('visible');
 
 // 인증번호 전송
 registerForm['contactSend'].addEventListener('click', () => {
@@ -357,6 +422,7 @@ registerForm['contactVerify'].addEventListener('click', () => {
                         completeButton.removeAttribute('disabled');
                         completeButton.classList.add('_blue');
                         registerForm.contactWarning.show('인증이 완료되었습니다.');
+                        registerForm.contactWarning.add('green');
                         break;
                     default:
                         registerForm['contactCode'].focus();

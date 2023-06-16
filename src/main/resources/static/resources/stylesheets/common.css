@@ -124,6 +124,10 @@ h1 {
     max-height: 3rem;
 }
 
+.warning.green{
+    color: #33ff33;
+}
+
 
 /*textarea*/
 .term_box {
