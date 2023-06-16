@@ -87,7 +87,7 @@ html{
     z-index: 9999;
 }
 
-/*화면 전환*/
+/*화면 전환을 위한 display 값들*/
 .step-1{
     display: block;
 }

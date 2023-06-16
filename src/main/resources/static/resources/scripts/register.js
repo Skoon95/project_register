@@ -1,16 +1,25 @@
 const registerForm = document.getElementById('registerForm');
 const dialogCover = document.getElementById('dialogCover');
 const addressLayer = document.getElementById('addressLayer');
-const agreeAllCheckbox = document.querySelector('input[name="agreeAll"]');
-const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+const agreeAllCheckbox = document.querySelector('input[name="agreeAll"]'); //모두 체크 버튼
+const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //1페이지의 체크박스들
 const nextButton = document.querySelector('.button-container input.next');
+// nextButton버튼 1페이지에서 2페이지로 넘어가는 버튼
 const completeButton = document.querySelector('.button-container input.complete');
+// 2페이지에서 3페이지로 넘어가는 버튼
 const step1 = document.querySelector('.main.step-1');
 const step2 = document.querySelector('.main.step-2');
 const step3 = document.querySelector('.main.step-3');
 
 
+
+
+
 // agreeAllCheckbox의 변경 이벤트 리스너를 추가합니다.
+// agreeAllCheckbox가 체크되면 모든 체크박스들이 체크된 상태가 됨
+// essential = [필수]항목들로 2개 모두 체크 되어 있어야만 다음 버튼이 활성화 됨
+// essential의 체크된 상태에 따라 다음버튼이 활성화/비활성화 됨
+// 활성화 = nextbutton의 disabled를 제거하고 _blue라는 클래스를 추가해줌으로써 활성화 시킨다.
 agreeAllCheckbox.addEventListener('change', function () {
     var isChecked = agreeAllCheckbox.checked;
 
@@ -89,6 +98,7 @@ function updateButtonState() {
 
 
 // 페이지 전환시 초기화
+// 이전 버튼이 없어서 필요하지 않을 수도 있는데 혹시 몰라서 넣어둠
 registerForm.show = () => {
 
     registerForm['name'].value='';
@@ -99,6 +109,7 @@ registerForm.show = () => {
 
 
 
+    // gender는 체크박스라서 조금 달라서 추후 예정
     // registerForm['gender'].value='';
     // registerForm.genderWarning.hide();
 
@@ -161,26 +172,29 @@ nextButton.addEventListener('click', function() {
 });
 
 // 2페이지 warning&회원가입
-// git test
 registerForm.onsubmit = e =>{
     e.preventDefault();
 
     if (getComputedStyle(step2).display === "block") {
         if (registerForm['name'].value === '') {
+            // 이름 미입력
             registerForm.nameWarning.show('이름을 입력해 주세요.');
             registerForm['name'].focus();
             return;
         }
         if (registerForm['birth'].value === '') {
+            // 생년월일 미입력
             registerForm.birthWarning.show('생년월일을 입력해 주세요.');
             registerForm['birth'].focus();
             return;
         }
         if (!registerForm['gender1'].checked && !registerForm['gender2'].checked){
+            // 성별이 하나도 선택되어 있지 않을 경우 하나라도 선택
             registerForm.genderWarning.show('성별을 선택해 주세요');
 
         }
         if (registerForm['email'].value === '') {
+            // email 미입력
             registerForm.emailWarning.show('이메일을 입력해 주세요.');
             registerForm['email'].focus();
             return;
@@ -188,87 +202,95 @@ registerForm.onsubmit = e =>{
 
         if (!new RegExp('^(?=.{10,50}$)([\\da-zA-Z\\-_]{5,25})@([\\da-z][\\da-z\\-]*[\\da-z]\\.)?([\\da-z][\\da-z\\-]*[\\da-z])\\.([a-z]{2,15})(\\.[a-z]{2})?$').test(registerForm['email'].value)) {
             registerForm.emailWarning.show('올바른 이메일을 입력해 주세요.');
+            // 이메일 형식이 틀렸을 경우
             registerForm['email'].focus();
             registerForm['email'].select();
             return;
         }
         if (registerForm['nickname'].value === '') {
+            // 별명 미입력
             registerForm.nicknameWarning.show('별명을 입력해 주세요.');
             registerForm['nickname'].focus();
             return;
         }
         if (!new RegExp('^([가-힣]{2,10})$').test(registerForm['nickname'].value)) {
             registerForm.nicknameWarning.show('올바른 별명을 입력해 주세요.');
+            // 별명의 형식 2글자 이상 영어 대소문자,한글
             registerForm['nickname'].focus();
             registerForm['nickname'].select();
             return;
         }
         if (registerForm['password'].value === '') {
             registerForm.passwordWarning.show('비밀번호를 입력해 주세요.');
+            //비밀번호 미입력
             registerForm['password'].focus();
             return;
         }
         if (!new RegExp('^([\\da-zA-Z`~!@#$%^&*()\\-_=+\\[{\\]};:\'",<.>/?]{8,50})$').test(registerForm['password'].value)) {
             registerForm.passwordWarning.show('올바른 비밀번호를 입력해 주세요.');
+            // 비밀번호 형식 특수문자 포함 영어대소문자 8글자~50글자
             registerForm['password'].focus();
             registerForm['password'].select();
             return;
         }
-        // 회원가입
-        const xhr = new XMLHttpRequest();
-        const formData = new FormData();
-        formData.append('email', registerForm['email'].value);
-        formData.append('name', registerForm['name'].value);
-        formData.append('nickname', registerForm['nickname'].value);
-        formData.append('contact', registerForm['contact'].value);
-        formData.append('code', registerForm['contactCode'].value);
-        formData.append('salt', registerForm['contactSalt'].value);
-        formData.append('birthStr', registerForm['birth'].value);
-        formData.append('addressPostal', registerForm['addressPostal'].value);
-        formData.append('addressPrimary', registerForm['addressPrimary'].value);
-        formData.append('addressSecondary', registerForm['addressSecondary'].value);
-        formData.append('gender', registerForm['gender'].value);
-        formData.append('password', registerForm['password'].value);
-        xhr.open('POST', '/register/register');
-        xhr.onreadystatechange = () => {
-            if (xhr.readyState === XMLHttpRequest.DONE) {
-                if (xhr.status >= 200 && xhr.status < 300) {
-                    const responseObject = JSON.parse(xhr.responseText);
-                    switch (responseObject.result) {
-                        case 'failure':
-                            registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                            break;
-                        case 'failure_duplicate_email':
-                            registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
-                            registerForm['email'].focus();
-                            registerForm['email'].select();
-                            break;
-                        case 'failure_duplicate_nickname':
-                            registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
-                            registerForm['nickname'].focus();
-                            registerForm['nickname'].select();
-                            break;
-                        case 'failure_duplicate_contact':
-                            registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
-                            registerForm['contact'].focus();
-                            registerForm['contact'].select();
-                            break;
-                        case 'success':
-                            step2.style.display = 'none';
-                            step3.style.display = 'block';
-                            break;
-                        default:
-                            registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
-                    }
-                } else {
-                    registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                }
-            }
-        };
-        xhr.send(formData);
+
+
     }
 
-
+    // 회원가입
+    const xhr = new XMLHttpRequest();
+    const formData = new FormData();
+    // 회원가입시 입력된 값들을 보낼때 code salt도 보내야된다
+    // salt를 보내야만 암호화된 값 비교가능
+    formData.append('email', registerForm['email'].value);
+    formData.append('name', registerForm['name'].value);
+    formData.append('nickname', registerForm['nickname'].value);
+    formData.append('contact', registerForm['contact'].value);
+    formData.append('code', registerForm['contactCode'].value);
+    formData.append('salt', registerForm['contactSalt'].value);
+    formData.append('birthStr', registerForm['birth'].value);
+    formData.append('addressPostal', registerForm['addressPostal'].value);
+    formData.append('addressPrimary', registerForm['addressPrimary'].value);
+    formData.append('addressSecondary', registerForm['addressSecondary'].value);
+    formData.append('gender', registerForm['gender'].value);
+    formData.append('password', registerForm['password'].value);
+    xhr.open('POST', '/register/register');
+    xhr.onreadystatechange = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                const responseObject = JSON.parse(xhr.responseText);
+                switch (responseObject.result) {
+                    case 'failure':
+                        registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+                        break;
+                    case 'failure_duplicate_email':
+                        registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
+                        registerForm['email'].focus();
+                        registerForm['email'].select();
+                        break;
+                    case 'failure_duplicate_nickname':
+                        registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
+                        registerForm['nickname'].focus();
+                        registerForm['nickname'].select();
+                        break;
+                    case 'failure_duplicate_contact':
+                        registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
+                        registerForm['contact'].focus();
+                        registerForm['contact'].select();
+                        break;
+                    case 'success':
+                        step2.style.display = 'none';
+                        step3.style.display = 'block';
+                        break;
+                    default:
+                        registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+                }
+            } else {
+                registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+            }
+        }
+    };
+    xhr.send(formData);
 }
 
 
@@ -276,7 +298,7 @@ registerForm.onsubmit = e =>{
 
 
 // warningList
-
+// warning문구들을 뛰우기 위한 정의 + show 와 hide의 정의들
 
 // nameWarning
 registerForm.nameWarning = registerForm.querySelector('[rel="nameWarning"]');
@@ -346,12 +368,14 @@ registerForm.addressWarning.hide = () => registerForm.addressWarning.classList.r
 registerForm['contactSend'].addEventListener('click', () => {
     registerForm.contactWarning.hide();
     if (registerForm['contact'].value === '') {
+        // 전화번호가 비어있을 경우
         registerForm.contactWarning.show('연락처를 입력해 주세요.');
         registerForm['contact'].focus();
         return;
     }
     if (!new RegExp('^(010)(\\d{8})$').test(registerForm['contact'].value)) {
         registerForm.contactWarning.show('올바른 연락처를 입력해 주세요.');
+        // 전화번호의 형식이 틀렸을 경우
         registerForm['contact'].focus();
         registerForm['contact'].select();
         return;
@@ -378,6 +402,8 @@ registerForm['contactSend'].addEventListener('click', () => {
                         registerForm['contactSalt'].value = responseObject.salt;
                         registerForm.contactWarning.show('입력하신 연락처로 인증번호를 전송하였습니다. 5분 이내로 입력해 주세요.');
                         break;
+                    //     성공시 전화번호 입력칸과 인증번호 보내기 칸 비활성화
+                    //     인증번호 입력칸 인증번호 확인칸 활성화
                     default:
                         registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환했습니다. 잠시 후 다시 시도해 주세요.');
                 }
@@ -394,12 +420,14 @@ registerForm['contactSend'].addEventListener('click', () => {
 registerForm['contactVerify'].addEventListener('click', () => {
     registerForm.contactWarning.hide();
     if (registerForm['contactCode'].value === '') {
+        // 인증번호 미입력
         registerForm.contactWarning.show('인증번호를 입력해 주세요.');
         registerForm['contactCode'].focus();
         return;
     }
     if (!new RegExp('^(\\d{6})$').test(registerForm['contactCode'].value)) {
         registerForm.contactWarning.show('올바른 인증번호를 입력해 주세요.');
+        // 인증번호 형식(숫자 6자리)이 틀렸을 경우
         registerForm['contactCode'].focus();
         registerForm['contactCode'].select();
         return;
@@ -424,7 +452,10 @@ registerForm['contactVerify'].addEventListener('click', () => {
                         completeButton.removeAttribute('disabled');
                         completeButton.classList.add('_blue');
                         registerForm.contactWarning.show('인증이 완료되었습니다.');
-                        registerForm.contactWarning.add('green');
+                        // registerForm.contactWarning.add('green'); 추가예정
+                        // 확인이 되었다면 warning의 색깔을 초록색으로 바꿀 예정
+                        // 인증번호 확인 성공시 인증번호 입력칸+인증번호 확인 버튼 비활성화
+                        // 비활성화 되어있는 완료버튼(completeButton)의 disabled를 제거하고 _blue 클래스를 추가하여 완료버튼 활성화
                         break;
                     default:
                         registerForm['contactCode'].focus();

@@ -79,6 +79,8 @@ public class HomeController {
     public String postRegister(UserEntity user
             ,RegisterContactCodeEntity registerContactCode
             ,@RequestParam(value = "birthStr")String birthStr) throws ParseException,NoSuchAlgorithmException {
+        // sdf를 이용해서 넘어오는 date타입을 매칭 시켜준다 년-월-일, 하지않을 경우 미스매치가 일어남
+//        js에서도 birStr로 넘기고 있으며 받아올때도 birthStr ->데이트 값을 문자로 변환 시킬것이기 때문에 이렇게 이름을 지음
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         Date birth = sdf.parse(birthStr);
         user.setBirth(birth);
