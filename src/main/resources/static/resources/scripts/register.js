@@ -2,7 +2,7 @@ const registerForm = document.getElementById('registerForm');
 const dialogCover = document.getElementById('dialogCover');
 const addressLayer = document.getElementById('addressLayer');
 const agreeAllCheckbox = document.querySelector('input[name="agreeAll"]'); //모두 체크 버튼
-const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //1페이지의 체크박스들
+const checkboxes = document.querySelectorAll('input[type="checkbox"]'); //1페이지의 체크박스들 반복문을 돌리기 위해 사용
 const nextButton = document.querySelector('.button-container input.next');
 // nextButton버튼 1페이지에서 2페이지로 넘어가는 버튼
 const completeButton = document.querySelector('.button-container input.complete');
