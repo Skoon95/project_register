@@ -161,6 +161,7 @@ nextButton.addEventListener('click', function() {
 });
 
 // 2페이지 warning&회원가입
+// git test
 registerForm.onsubmit = e =>{
     e.preventDefault();
 
