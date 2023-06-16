@@ -275,6 +275,7 @@ registerForm.onsubmit = e =>{
 
 
 // warningList
+// github변경 내용 확인용
 
 // nameWarning
 registerForm.nameWarning = registerForm.querySelector('[rel="nameWarning"]');
