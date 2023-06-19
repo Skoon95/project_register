@@ -233,65 +233,71 @@ registerForm.onsubmit = e =>{
             registerForm['password'].select();
             return;
         }
-
+        if (registerForm['password'].value !== registerForm['passwordCheck'].value) {
+            registerForm.passwordWarning.show('비밀번호가 서로 일치하지 않습니다. 다시 한번 더 확인해 주세요.'); //비밀번호 & 비밀번호 재입력 미일치
+            registerForm['passwordCheck'].focus();
+            registerForm['passwordCheck'].select();
+            return;
+        }
+        // 회원가입
+        const xhr = new XMLHttpRequest();
+        const formData = new FormData();
+        // 회원가입시 입력된 값들을 보낼때 code salt도 보내야된다
+        // salt를 보내야만 암호화된 값 비교가능
+        formData.append('email', registerForm['email'].value);
+        formData.append('name', registerForm['name'].value);
+        formData.append('nickname', registerForm['nickname'].value);
+        formData.append('contact', registerForm['contact'].value);
+        formData.append('code', registerForm['contactCode'].value);
+        formData.append('salt', registerForm['contactSalt'].value);
+        formData.append('birthStr', registerForm['birth'].value);
+        formData.append('addressPostal', registerForm['addressPostal'].value);
+        formData.append('addressPrimary', registerForm['addressPrimary'].value);
+        formData.append('addressSecondary', registerForm['addressSecondary'].value);
+        formData.append('gender', registerForm['gender'].value);
+        formData.append('password', registerForm['password'].value);
+        xhr.open('POST', '/register/register');
+        xhr.onreadystatechange = () => {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    const responseObject = JSON.parse(xhr.responseText);
+                    switch (responseObject.result) {
+                        case 'failure':
+                            registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+                            break;
+                        case 'failure_duplicate_email':
+                            registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
+                            registerForm['email'].focus();
+                            registerForm['email'].select();
+                            break;
+                        case 'failure_duplicate_nickname':
+                            registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
+                            registerForm['nickname'].focus();
+                            registerForm['nickname'].select();
+                            break;
+                        case 'failure_duplicate_contact':
+                            registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
+                            registerForm['contact'].focus();
+                            registerForm['contact'].select();
+                            break;
+                        case 'success':
+                            step2.style.display = 'none';
+                            step3.style.display = 'block';
+                            break;
+                        default:
+                            registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
+                    }
+                } else {
+                    registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
+                }
+            }
+        };
+        xhr.send(formData);
+    }
 
     }
 
-    // 회원가입
-    const xhr = new XMLHttpRequest();
-    const formData = new FormData();
-    // 회원가입시 입력된 값들을 보낼때 code salt도 보내야된다
-    // salt를 보내야만 암호화된 값 비교가능
-    formData.append('email', registerForm['email'].value);
-    formData.append('name', registerForm['name'].value);
-    formData.append('nickname', registerForm['nickname'].value);
-    formData.append('contact', registerForm['contact'].value);
-    formData.append('code', registerForm['contactCode'].value);
-    formData.append('salt', registerForm['contactSalt'].value);
-    formData.append('birthStr', registerForm['birth'].value);
-    formData.append('addressPostal', registerForm['addressPostal'].value);
-    formData.append('addressPrimary', registerForm['addressPrimary'].value);
-    formData.append('addressSecondary', registerForm['addressSecondary'].value);
-    formData.append('gender', registerForm['gender'].value);
-    formData.append('password', registerForm['password'].value);
-    xhr.open('POST', '/register/register');
-    xhr.onreadystatechange = () => {
-        if (xhr.readyState === XMLHttpRequest.DONE) {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                const responseObject = JSON.parse(xhr.responseText);
-                switch (responseObject.result) {
-                    case 'failure':
-                        registerForm.contactWarning.show('알 수 없는 이유로 가입하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-                        break;
-                    case 'failure_duplicate_email':
-                        registerForm.emailWarning.show('해당 이메일은 이미 사용 중입니다.');
-                        registerForm['email'].focus();
-                        registerForm['email'].select();
-                        break;
-                    case 'failure_duplicate_nickname':
-                        registerForm.nicknameWarning.show('해당 별명은 이미 사용 중입니다.');
-                        registerForm['nickname'].focus();
-                        registerForm['nickname'].select();
-                        break;
-                    case 'failure_duplicate_contact':
-                        registerForm.contactWarning.show('해당 연락처는 이미 사용 중입니다.');
-                        registerForm['contact'].focus();
-                        registerForm['contact'].select();
-                        break;
-                    case 'success':
-                        step2.style.display = 'none';
-                        step3.style.display = 'block';
-                        break;
-                    default:
-                        registerForm.contactWarning.show('서버가 알 수 없는 응답을 반환하였습니다. 잠시 후 다시 시도해 주세요.');
-                }
-            } else {
-                registerForm.contactWarning.show('서버와 통신하지 못하였습니다. 잠시 후 다시 시도해 주세요.');
-            }
-        }
-    };
-    xhr.send(formData);
-}
+
 
 
 
